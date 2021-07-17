@@ -1,0 +1,7 @@
+# Compiled code
+**/*.byte
+**/*.cmi
+**/*.cmo
+**/*_log
+**/*_digest
+**/_build/
