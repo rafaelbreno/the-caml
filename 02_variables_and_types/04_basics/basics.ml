@@ -35,3 +35,22 @@ let _ =
 (*printf "%d" forty;;*)
 
 (*---------------------------------------------------------*)
+
+(*Main Function*)
+
+let rec counter (from:int) (until:int) =
+  if from<until then begin
+    printf "counter: %d\n" from;
+    counter (from + 1) until;
+  end;;
+
+(*Main*)
+let main () =
+  printf "%s\n" "Begin main function";
+  counter 1 10;
+  printf "%s\n" "End main function";
+;;
+
+main ();;
+
+(*---------------------------------------------------------*)
