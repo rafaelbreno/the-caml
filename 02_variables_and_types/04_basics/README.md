@@ -1,5 +1,9 @@
 ## Basics
 
+### Summary
+1. [Let Expression](#let-expression)
+2. [Scope](#scope)
+
 ### Let Expression
 - Until now we've been using _let definition_
   - For example: `let inc = fun (arg:int) :int-> arg + 1`
@@ -32,4 +36,18 @@ printf "%d\n" x;;
 printf "let x = 42 in x + 1: %d \n" (let x = 42 in x + 1);;
 
 printf "let x = 42 in (fun (arg1:int) :int -> inc arg1) x : %d\n"(let x = 42 in (fun (arg1:int) :int -> inc arg1) x);;
+```
+
+### Scope
+- Is where a _"definide thing"_(functions, expression, etc) can be accessed or not, or in other words:
+  - _"Let bindings are in effect only in the block of code in which they occur."_
+```
+(*Openining a scope*)
+let _ =
+  let forty = 40 in
+  (*forty can be accessed here*)
+  printf "%d\n" forty;;
+
+(*forty cannot be accessed here*)
+(*printf "%d" forty;;*)
 ```
