@@ -104,5 +104,43 @@ let rec inc lst =
   matching with a list(h::t) bind the first
   element to h and the rest(a list) to t
   *)
+(*---------------------------------------------------------*)
+(*Tail Recursion*)
+printf "%s\n" "------- Tail Recursion -------";;
+
+let rec sum (l:int list) : int = 
+  match l with
+  | [] -> 0
+  | h::t -> h + (sum t);;
+
+let rec sum_plus_acc (acc:int) (l:int list) : int =
+  match l with
+  | [] -> acc (*acc stands for accumulator (I guess)*)
+  | h::t -> sum_plus_acc (acc + h) t;;
+
+(*tr stands for tail recursive*)
+let sum_tr : int list -> int =
+  sum_plus_acc 0;;
+
+let l = [1;2;3;4;5;6;7;8;9;10];;
+
+printf "Without TR: %d\n" (sum l);;
+printf "With TR: %d\n" (sum_tr l);;
+(*---------------------------------------------------------*)
+
+(*More Syntax*)
+printf "%s\n" "------- More Syntax -------";;
+
+let rec sum (l:int list) = 
+  match l with
+  | [] -> 0
+  | h::t -> h + (sum t);;
+
+let rec sum_sugary = function
+  | [] -> 0
+  | h::t -> h + (sum t);;
+
+printf "Non-sugar: %d\n" (sum l);;
+printf "Sugary: %d\n" (sum_sugary l);;
 
 (*---------------------------------------------------------*)

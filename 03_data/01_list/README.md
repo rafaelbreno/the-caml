@@ -5,6 +5,8 @@
 2. [Accessing](#accessing)
 3. [Mutating](#mutating)
 4. [Pattern Matching](#pattern-matching)
+5. [Tail Recursion](#tail-recursion)
+6. [More Syntax](#more-syntax)
 
 ### Syntax
 - List can be defined as:
@@ -151,3 +153,54 @@ let example v =
 - Match `v` against : `p1`, `p2`, ..., `pn`
 - If anything matches, raise a _exception_ `Match_Failure`
   - we'll learn how to handle exceptions and what they're in the future
+
+```ocaml
+let rec inc lst =
+  match lst with
+  | [] -> [] (*matching with [] bind to nothing*)
+  | h::t -> (h+1)::(inc t);; (*
+  matching with a list(h::t) bind the first
+  element to h and the rest(a list) to t
+  *)
+```
+
+### Tail Recursion
+- _"A function is tail recursive if it calls itself recursively but does not perform any computation after the recursive call returns"_
+- _TLDR:_ tail recursion is better with long lists
+- [More Details](https://www.cs.cornell.edu/courses/cs3110/2019sp/textbook/data/tail_recursion.html)
+```ocaml
+let rec sum (l:int list) : int = 
+  match l with
+  | [] -> 0
+  | h::t -> h + (sum t);;
+
+let rec sum_plus_acc (acc:int) (l:int list) : int =
+  match l with
+  | [] -> acc (*acc stands for accumulator (I guess)*)
+  | h::t -> sum_plus_acc (acc + h) t;;
+
+(*tr stands for tail recursive*)
+let sum_tr : int list -> int =
+  sum_plus_acc 0;;
+
+let l = [1;2;3;4;5;6;7;8;9;10];;
+
+printf "Without TR: %d\n" (sum l);;
+printf "With TR: %d\n" (sum_tr l);;
+```
+
+### More Syntax
+- The keyword `function` allows you to add a little _sugar_ to a function that immediately pattern-matches against the final argument
+```ocaml
+(*Instead of this*)
+let rec sum (l:int list) = 
+  match l with
+  | [] -> 0
+  | h::t -> h + (sum t);;
+
+(*You can do this*)
+let rec sum_sugary = function
+  | [] -> 0
+  | h::t -> h + (sum t);;
+```
+- But this lead to a undescriptive function, to avoid that you can use [OCamldoc](https://ocaml.org/manual/ocamldoc.html) to literally document your code.
