@@ -7,6 +7,7 @@
 4. [Pattern Matching](#pattern-matching)
 5. [Tail Recursion](#tail-recursion)
 6. [More Syntax](#more-syntax)
+7. [Association](#association)
 
 ### Syntax
 - List can be defined as:
@@ -204,3 +205,23 @@ let rec sum_sugary = function
   | h::t -> h + (sum t);;
 ```
 - But this lead to a undescriptive function, to avoid that you can use [OCamldoc](https://ocaml.org/manual/ocamldoc.html) to literally document your code.
+
+### Association
+- A _dictionary_ is a data structure that maps `key to values`, one way to implement it is an _association list_
+```ocaml
+let map = [ ("Brasil", 55); ("Mexico", 21) ];;
+
+let prepend k v map = (k,v)::map;;
+let rec find k = function
+  | [] -> None
+  | (k', v)::t -> (*here k' is just an identifier, it could be kk too. It's TOTALLY different from 'a that's a general type*)
+      if k=k' 
+      then Some v 
+      else find k t;;
+
+let found = find "Brasil" map;;
+
+let print_found = function
+  | None -> printf "Not found \n"
+  | Some v -> printf "Key found! Value: %d\n" v;;
+```

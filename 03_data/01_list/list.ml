@@ -142,5 +142,24 @@ let rec sum_sugary = function
 
 printf "Non-sugar: %d\n" (sum l);;
 printf "Sugary: %d\n" (sum_sugary l);;
+(*---------------------------------------------------------*)
+(*Association*)
+printf "%s\n" "------- Association -------";;
+let map = [ ("Brasil", 55); ("Mexico", 21) ];;
 
+let prepend k v map = (k,v)::map;;
+let rec find k = function
+  | [] -> None
+  | (k', v)::t -> (*here k' is just an identifier, it could be kk too. It's TOTALLY different from 'a that's a general type*)
+      if k=k' 
+      then Some v 
+      else find k t;;
+
+let found = find "Brasil" map;;
+
+let print_found = function
+  | None -> printf "Not found \n"
+  | Some v -> printf "Key found! Value: %d\n" v;;
+
+print_found found;;
 (*---------------------------------------------------------*)
