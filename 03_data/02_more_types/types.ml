@@ -131,3 +131,20 @@ let color_to_string : color -> string = function
   | Red -> "red"
   | Green -> "green";;
 (*---------------------------------------------------------*)
+
+(*Recursive Variants*)
+printf "%s\n" "------- Recursive Variants -------";;
+type intlist = 
+  | Nil
+  | Cons of int * intlist;; (*Cons as constructor*)
+
+let l3 = Cons(3, Nil) (*similar to 3::[] or [3]*)
+let lst = Cons(1, Cons(2, l3));; (*similar to [1;2;3]*)
+
+let rec sum (l:intlist) : int = 
+  match l with
+  | Nil -> 0
+  | Cons(h,t) -> h + sum t;;
+
+printf "Sum: %d\n" (sum lst);;
+(*---------------------------------------------------------*)

@@ -2,6 +2,7 @@
 
 ### Summary
 1. [Variants](#variants)
+  - [Recursive Variants](#recursive-variants)
 2. [Records](#records)
 3. [Tuples](#tuples)
 4. [Type Synonyms](#type-synonyms)
@@ -33,6 +34,24 @@ let int_month = function
   | December -> 12;;
 
 printf "November is the %d° month of the year\n" (int_month november);;
+```
+
+#### Recursive Variants
+- Variants may call itself inside their own body
+```ocaml
+type intlist = 
+  | Nil
+  | Cons of int * intlist;; (*Cons as constructor*)
+
+let l3 = Cons(3, Nil) (*similar to 3::[] or [3]*)
+let lst = Cons(1, Cons(2, l3));; (*similar to [1;2;3]*)
+
+let rec sum (l:intlist) : int = 
+  match l with
+  | Nil -> 0
+  | Cons(h,t) -> h + sum t;;
+
+printf "Sum: %d\n" (sum lst);;
 ```
 
 ### Records
