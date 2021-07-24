@@ -4,6 +4,7 @@
 1. [Variants](#variants)
   - [Recursive Variants](#recursive-variants)
 2. [Records](#records)
+  - [Recursive Records](#recursive-records)
 3. [Tuples](#tuples)
 4. [Type Synonyms](#type-synonyms)
 5. [Algebraic Data Types](#algebraic-data-types)
@@ -65,6 +66,26 @@ type employee = {
 
 let foo:employee = { name = "Foo"; age = 42 };;
 let bar = { name = "Bar"; age = 67 };;
+```
+
+#### Recursive Records
+- Like _variants_, records can may be recursive too using the `and` keyword
+```ocaml
+type node = {
+  value:int;
+  next:mylist
+  } and
+  mylist = 
+  | Nil
+  | Node of node;;
+
+let foo:node = {
+  value = 10;
+  next = Node({
+    value = 13;
+    next = Nil
+  })
+};;
 ```
 
 ### Tuples

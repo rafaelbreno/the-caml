@@ -148,3 +148,27 @@ let rec sum (l:intlist) : int =
 
 printf "Sum: %d\n" (sum lst);;
 (*---------------------------------------------------------*)
+
+(*Recursive Records*)
+printf "%s\n" "------- Recursive Records -------";;
+
+type node = {
+  value:int;
+  next:mylist
+  } and
+  mylist = 
+  | Nil
+  | Node of node;;
+
+let foo:node = {
+  value = 10;
+  next = Node({
+    value = 13;
+    next = Nil
+  })
+};;
+(*---------------------------------------------------------*)
+
+(*Algebraic Data Types*)
+printf "%s\n" "------- Algebraic Data Types -------";;
+(*---------------------------------------------------------*)
