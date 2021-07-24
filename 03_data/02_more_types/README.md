@@ -6,6 +6,7 @@
 3. [Tuples](#tuples)
 4. [Type Synonyms](#type-synonyms)
 5. [Algebraic Data Types](#algebraic-data-types)
+6. [Catch All](#catch-all)
 
 ### Variants
 - It's like an `enum` in other languages
@@ -114,4 +115,26 @@ let rec sum : string_or_int list -> int = function
   | (Int i)::t -> i + sum t;;
 
 printf "Sum of \"5\" and 3: %d\n" (sum [String "5"; Int 3]);;
+```
+
+### Catch All
+- _"Gotta catch 'em all"_, not really
+- The case _"\_"_ in pattern matching, catch all cases, this is a thing that you MUST avoid using, because it lead to a buggy code
+```ocaml
+type color = 
+  | Blue
+  | Red
+  | Green;;
+
+(*Instead of this*)
+let color_to_string : color -> string = function
+  | Blue -> "blue"
+  | Red -> "red"
+  | _ -> "green";;
+
+(*Do this*)
+let color_to_string : color -> string = function
+  | Blue -> "blue"
+  | Red -> "red"
+  | Green -> "green";;
 ```

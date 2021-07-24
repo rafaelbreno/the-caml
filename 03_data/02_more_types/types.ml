@@ -112,3 +112,22 @@ let rec sum : string_or_int list -> int = function
 printf "Sum of \"5\" and 3: %d\n" (sum [String "5"; Int 3]);;
 (*---------------------------------------------------------*)
 
+(*Catch All*)
+printf "%s\n" "------- Catch All -------";;
+type color = 
+  | Blue
+  | Red
+  | Green;;
+
+(*Instead of this*)
+let color_to_string : color -> string = function
+  | Blue -> "blue"
+  | Red -> "red"
+  | _ -> "green";;
+
+(*Do this*)
+let color_to_string : color -> string = function
+  | Blue -> "blue"
+  | Red -> "red"
+  | Green -> "green";;
+(*---------------------------------------------------------*)
