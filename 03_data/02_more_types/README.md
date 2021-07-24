@@ -4,6 +4,7 @@
 1. [Variants](#variants)
 2. [Records](#records)
 3. [Tuples](#tuples)
+4. [Type Synonyms](#type-synonyms)
 
 ### Variants
 - It's like an `enum` in other languages
@@ -60,4 +61,10 @@ let concat (x, y, _) : string = sprintf "%s%s" x y;;
 
 printf "Total amount of apples: %d\n" (get_apples t1);;
 printf "Concat: %s\n" (concat t2);;
+```
+
+### Type Synonyms
+- A _type sysonym_ is a new name for a existing type:
+```
+
 ```

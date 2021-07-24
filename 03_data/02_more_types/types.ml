@@ -60,3 +60,20 @@ let concat (x, y, _) : string = sprintf "%s%s" x y;;
 printf "Total amount of apples: %d\n" (get_apples t1);;
 printf "Concat: %s\n" (concat t2);;
 (**************************************)
+
+(*Type Synonyms*)
+printf "%s\n" "------- Type Synonyms -------";;
+
+type point = float * float;;
+
+(*float * float*)
+let p_1_3 = (1.,3.);;
+let p_5_8 = (-5.67777,8.99999);;
+
+let getx : point -> float = 
+  fun (x,_) -> x;;
+
+printf "X of (1.,3.): %.2f\n" (getx p_1_3);;
+printf "X of (-5.67777,8.99999): %.2f\n" (getx p_5_8);;
+
+(*---------------------------------------------------------*)
