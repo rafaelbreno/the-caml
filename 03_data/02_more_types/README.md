@@ -11,6 +11,7 @@
 4. [Type Synonyms](#type-synonyms)
 5. [Algebraic Data Types](#algebraic-data-types)
 6. [Catch All](#catch-all)
+7. [Exceptions](#exceptions)
 
 ### Variants
 - It's like an `enum` in other languages
@@ -237,4 +238,31 @@ let color_to_string : color -> string = function
   | Blue -> "blue"
   | Red -> "red"
   | Green -> "green";;
+```
+
+### Exceptions
+- Finally _exceptions_
+- _Exception_ is one way to handle errors in OCaml, it belongs to the type `exn`
+```ocaml
+(*
+  Add a variant Foo to the type
+  exn that receives a string
+ *)
+exception Foo of string;;
+
+(*
+  This function will use the block try..with
+  it will execute the function fail, and the return value
+  will be set against the pattern matching
+*)
+let fail () =
+  raise(Foo "This failed.");;
+
+(* This function will use the block try..with
+  it will execute the function fail, and the return value
+  will be set against the pattern matching
+*)
+let () =
+  try fail () with
+  | Foo e -> printf "%s\n" e;;
 ```

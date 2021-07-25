@@ -221,3 +221,24 @@ print_n 2;
 print_n 0;
 
 (*---------------------------------------------------------*)
+(*Exceptions*)
+printf "%s\n" "------- Exceptions -------";;
+
+(*
+  Add a variant Foo to the type
+  exn that receives a string
+ *)
+exception Foo of string;;
+let fail () =
+  raise(Foo "This failed.");;
+
+(*
+  This function will use the block try..with
+  it will execute the function fail, and the return value
+  will be set against the pattern matching
+*)
+let () =
+  try fail () with
+  | Foo e -> printf "%s\n" e;;
+
+(*---------------------------------------------------------*)
