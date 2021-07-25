@@ -169,6 +169,20 @@ let foo:node = {
 };;
 (*---------------------------------------------------------*)
 
-(*Algebraic Data Types*)
-printf "%s\n" "------- Algebraic Data Types -------";;
+(*Parameterized Variants*)
+printf "%s\n" "------- Parameterized Variants -------";;
+
+type 'a somelist = (*This will allow to somelist accept any value, because 'a is a general type*)
+  | Nil
+  | Cons of 'a * 'a somelist;;
+
+let int_list = Cons(1, Cons(2, Cons(3, Nil)));; (*Same as [1;2;3]*)
+let str_list = Cons("Hello", Cons(", World!", Nil));; (*Same as ["Hello";", World!"]*)
+
+let rec len : 'a somelist -> int = function
+  | Nil -> 0
+  | Cons(_, t) -> 1 + len t;;
+
+printf "Length of int_list: %d\n" (len int_list);;
+printf "Length of str_list: %d\n" (len str_list);;
 (*---------------------------------------------------------*)

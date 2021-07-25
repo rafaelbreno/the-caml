@@ -3,6 +3,7 @@
 ### Summary
 1. [Variants](#variants)
   - [Recursive Variants](#recursive-variants)
+  - [Parameterized Variants](#parameterized-variants)
 2. [Records](#records)
   - [Recursive Records](#recursive-records)
 3. [Tuples](#tuples)
@@ -53,6 +54,24 @@ let rec sum (l:intlist) : int =
   | Cons(h,t) -> h + sum t;;
 
 printf "Sum: %d\n" (sum lst);;
+```
+
+#### Parameterized Variants
+- You can instead of define a single type you can use `'a` for a general type
+```ocaml
+type 'a somelist = (*This will allow to somelist accept any value, because 'a is a general type*)
+  | Nil
+  | Cons of 'a * 'a somelist;;
+
+let int_list = Cons(1, Cons(2, Cons(3, Nil)));; (*Same as [1;2;3]*)
+let str_list = Cons("Hello", Cons(", World!", Nil));; (*Same as ["Hello";", World!"]*)
+
+let rec len : 'a somelist -> int = function
+  | Nil -> 0
+  | Cons(_, t) -> 1 + len t;;
+
+printf "Length of int_list: %d\n" (len int_list);;
+printf "Length of str_list: %d\n" (len str_list);;
 ```
 
 ### Records
