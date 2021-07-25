@@ -58,6 +58,7 @@ printf "Sum: %d\n" (sum lst);;
 
 #### Parameterized Variants
 - You can instead of define a single type you can use `'a` for a general type
+  - Now `somelist` is a _type constructor_, not a _type_
 ```ocaml
 type 'a somelist = (*This will allow to somelist accept any value, because 'a is a general type*)
   | Nil
