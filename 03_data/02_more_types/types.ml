@@ -186,3 +186,38 @@ let rec len : 'a somelist -> int = function
 printf "Length of int_list: %d\n" (len int_list);;
 printf "Length of str_list: %d\n" (len str_list);;
 (*---------------------------------------------------------*)
+(*Polymorphic Variants*)
+printf "%s\n" "------- Polymorphic Variants -------";;
+
+type fin_or_inf = 
+  | Finite of int
+  | Infinity;;
+
+let f = function
+  | 0 -> Infinity
+  | 1 -> Finite 1
+  | n -> Finite(-n);;
+
+(*
+  But using the way above, you were forced to define a type fin_or_inf
+  even though you may no use it directly in the rest of the code.
+ *)
+
+let f = function
+  | 0 -> `Infinity
+  | 1 -> `Finite 1
+  | n -> `Finite (-n);;
+(*This means:
+  f returns "Finite n" for n:int
+  or Infinity
+  *)
+
+let print_n (n:int) =
+  match f n with
+  | `Infinity -> printf "Infinity\n"
+  | `Finite n -> printf "Finite of value: %d\n" n;;
+
+print_n 2;
+print_n 0;
+
+(*---------------------------------------------------------*)
