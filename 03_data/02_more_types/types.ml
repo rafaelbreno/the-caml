@@ -232,8 +232,7 @@ exception Foo of string;;
 let fail () =
   raise(Foo "This failed.");;
 
-(*
-  This function will use the block try..with
+(* This function will use the block try..with
   it will execute the function fail, and the return value
   will be set against the pattern matching
 *)
@@ -241,4 +240,109 @@ let () =
   try fail () with
   | Foo e -> printf "%s\n" e;;
 
+(*---------------------------------------------------------*)
+(*Trees*)
+printf "%s\n" "------- Trees -------";;
+
+(*Definition of binary three*)
+type 'a tree =
+  | Leaf
+  | Node of 'a * 'a tree * 'a tree;;
+  (*Node having:
+    - 'a: Node value
+    - 1st 'a tree: left subtree
+    - 2nd 'a tree: right subtree
+    *)
+
+(* the code below constructs this tree:
+         4
+       /   \
+      2     5
+     / \   / \
+    1   3 6   7 
+*)
+
+let t =
+  Node(4,
+    Node(2,
+      Node(1, Leaf, Leaf),
+      Node(3, Leaf, Leaf)
+    ),
+    Node(5,
+      Node(6, Leaf, Leaf),
+      Node(7, Leaf, Leaf)
+    )
+  );;
+
+let rec size = function
+  | Leaf -> 0
+  | Node (_, left_subtree, right_subtree) -> 1 + size left_subtree + size right_subtree;;
+
+printf "Size of tree is: %d\n" (size t);;
+
+type 'a tree_record = 
+  | Leaf
+  | Node of 'a node_record
+and
+  'a node_record = {
+    value: 'a;
+    left: 'a tree_record;
+    right: 'a tree_record;
+  };;
+
+(* the code below constructs this tree:
+         4
+       /   \
+      2     5
+     / \   / \
+    1   3 6   7 
+             /
+            8
+*)
+let t = 
+  Node {
+    value = 4;
+    left = Node {
+      value = 2;
+      left = Node {
+        value = 1;
+        left = Leaf;
+        right = Leaf;
+      };
+      right = Node {
+        value = 3;
+        left = Leaf;
+        right = Leaf;
+      };
+    };
+    right = Node {
+      value = 5;
+      left = Node {
+        value = 6;
+        left = Leaf;
+        right = Leaf;
+    };
+      right = Node {
+        value = 7;
+        left = Leaf;
+        right = Node {
+          value = 8;
+          left = Leaf;
+          right = Leaf;
+      }
+      };
+  };
+};;
+
+let rec size = function
+  | Leaf -> 0
+  | Node {left; right} -> 1 + size left + size right;;
+
+let rec found_value v = function
+  | Leaf -> false
+  | Node {value; left; right} -> value = v || found_value v left || found_value v right;;
+
+printf "Size of tree is: %d\n" (size t);;
+printf "Found value 71? %b\n" (found_value 71 t);;
+printf "Found value 7? %b\n" (found_value 7 t);;
 (*---------------------------------------------------------*)
