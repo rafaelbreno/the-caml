@@ -5,6 +5,8 @@
 2. [Structures](#structures)
 3. [Signatures](#signatures)
 4. [Abstract Types](#abstract-types)
+5. [Examples](#examples)
+  - [Example 1](#example-1)
 
 ### Introduction
 - A _module_ is like a toolbox built for a specific action, so instead of writting all the code freely inside the file(s), you may want to _abstract_ certain parts of it inside of a module.
@@ -127,4 +129,37 @@ printf "Sum: %d\n" (Sum.sum lst);;
 
 ### Abstract Types
 - As seen before the type `'a stack` is _abstract_: the `ModuleType` module type says that there is a type name `'a stack` in any module that implements the module type, but it does not say what that type is defined to be.
-- Once we add `: ModuleType` module type annotation to `ListStack`, 
+- Once we add `: ModuleType` module type annotation to `ListStack`, its `'a stack` type also becomes abstract.
+- _TL;DR_ All definition in `S`(signature) __must__ be in `M`(structure), but not all definitions in `M` must be in `S`
+```ocaml
+module type S1 = sig 
+  val add   : int -> int
+
+  val sum   : int list -> int
+end;;
+
+module type S2 = sig 
+  val f     : int -> int
+
+  val sum   : int list -> int
+end;;
+
+module M : S1 = struct
+  let empty = []
+
+  let add x = x + 1
+
+  let rec sum = function
+    | [] -> 0
+    | h::t -> h + (sum t)
+end;;
+```
+- In the example above we can do `M : S1`, but can't `M : S2` because there's no definition `let f` in `M`.
+
+### Examples
+- From _CS Cornell_
+
+#### Example 1
+```ocaml
+(*STACKS*)
+```

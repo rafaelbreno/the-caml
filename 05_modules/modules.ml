@@ -83,16 +83,68 @@ end;;
 
 let lst = [1;2;3;4;5];;
 
-printf "Sum: %d" (Sum.sum lst);;
+printf "Sum: %d\n" (Sum.sum lst);;
 
 (**************************************)
 
 (************** Abstract Types **************)
 printf "%s" "------- Abstract Types -------\n";;
+
+let lst = [1;2;3;4;5];;
+
+module type S1 = sig 
+  val add   : int -> int
+
+  val sum   : int list -> int
+end;;
+
+module type S2 = sig 
+  val add   : int -> int
+
+  val sum   : int list -> int
+end;;
+
+module M : S1 = struct
+  let empty = []
+
+  let add x = x + 1
+
+  let rec sum = function
+    | [] -> 0
+    | h::t -> h + (sum t)
+end;;
+
+printf "Sum: %d\n" (M.sum lst);;
+
+
 (**************************************)
 
-(**************  **************)
-printf "%s" "-------  -------\n";;
+(************** Example 1 - Stacks **************)
+printf "%s" "------- Example 1 - Stacks -------\n";;
+
+module type StackExample = sig
+  (* The type of a stack whose elements are type 'a *)
+  type 'a stack
+
+  (* The empty stack *)
+  val empty : 'a stack
+
+  (*Whether the stack is empty*)
+  val is_empty : 'a  stack -> bool
+
+  (* [push x s] is the stack [s] with [x] pushed on the top *)
+  val push : 'a -> 'a stack -> 'a stack
+
+  (* [peek s] is the top element of [s].
+     Raises Failure if [s] is empty. *)
+  val peek : 'a stack -> 'a
+
+  (* [pop s] pops and discards the top element of [s].
+     Raises Failure if [s] is empty.*)
+  val pop : 'a stack -> '
+end;;
+
+
 (**************************************)
 
 (**************  **************)
