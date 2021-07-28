@@ -4,6 +4,7 @@
 1. [Introduction](#introduction)
 2. [Structures](#structures)
 3. [Signatures](#signatures)
+4. [Abstract Types](#abstract-types)
 
 ### Introduction
 - A _module_ is like a toolbox built for a specific action, so instead of writting all the code freely inside the file(s), you may want to _abstract_ certain parts of it inside of a module.
@@ -123,3 +124,7 @@ let lst = [1;2;3;4;5];;
 
 printf "Sum: %d\n" (Sum.sum lst);;
 ```
+
+### Abstract Types
+- As seen before the type `'a stack` is _abstract_: the `ModuleType` module type says that there is a type name `'a stack` in any module that implements the module type, but it does not say what that type is defined to be.
+- Once we add `: ModuleType` module type annotation to `ListStack`, 
